@@ -110,9 +110,9 @@ namespace RDVFSharp.FightingLogic.Actions
             attacker.IsGrabbable = 0;
             target.IsGrabbable = 0;
 
-            foreach (var opposingFighter in battlefield.Fighters.Where(x => x.Name != target.Name && x.TeamColor != attacker.TeamColor))
+            foreach (var opposingFighter in battlefield.Fighters.Where(x => x.Name != target.Name && x.TeamColor == target.TeamColor))
             {
-                opposingFighter.HitHp((damage / 2) - opposingFighter.IsEvading);
+                opposingFighter.HitHp((damage / 2));
                 opposingFighter.IsGrabbable = 0;
             }
 

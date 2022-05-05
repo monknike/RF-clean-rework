@@ -106,9 +106,9 @@ namespace RDVFSharp.FightingLogic.Actions
             if (attacker.IsRestrained) attacker.IsEscaping += (int)Math.Floor((double)damage / 5);
 
             damage = Math.Max(damage, 1);
-            foreach (var opposingFighter in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
+            foreach (var opposingFighter in battlefield.Fighters.Where(x => x.TeamColor == target.TeamColor))
             {
-                opposingFighter.HitHp((damage * 3 / 4) - target.IsEvading);
+                opposingFighter.HitHp((damage * 3 / 4));
                 opposingFighter.IsGrabbable = 0;
             }
             
