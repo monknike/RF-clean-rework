@@ -86,8 +86,6 @@ namespace RDVFSharp.FightingLogic.Actions
             }
             if (target.IsDisoriented > 0) target.IsDisoriented += 2;
             if (target.IsExposed > 0) target.IsExposed += 2;
-
-            target.IsDazed = true;
             return true; //Successful attack, if we ever need to check that.
         }
     }
