@@ -25,11 +25,11 @@ namespace RDVFSharp
             var serviceProvider = services.BuildServiceProvider();
 
 #if DEBUG
-            var flistUsername = "";
-            var flistPassword = "";
-            var botCharacterName = ""; //The character used to log in with
-            var adminName = "Aelith Blanchette";
-            var channelToWatch = new List<string>() { "adh-2bef661405a83f74cd94" }; //Your testing channel code, obtainable with /code in the chat
+            var flistUsername = "monknike2000";
+            var flistPassword = "madhusudan1965";
+            var botCharacterName = "RF Alpha"; //The character used to log in with
+            var adminName = "Mayank";
+            var channelToWatch = new List<string>() { "adh-9559e0749d1938d206f0" }; //Your testing channel code, obtainable with /code in the chat
             var bot = new FChatSharpLib.Bot(flistUsername, flistPassword, botCharacterName, adminName, true, 4000);
             bot.Connect();
 

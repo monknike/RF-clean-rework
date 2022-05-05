@@ -1,6 +1,7 @@
 ﻿using RDVFSharp.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RDVFSharp.FightingLogic.Actions
@@ -74,6 +75,18 @@ namespace RDVFSharp.FightingLogic.Actions
 
             damage = Math.Max(damage, 0);
             if (damage > 0) target.HitHp(damage); //This is to prevent the game displayin that the attacker did 0 damage, which is the normal case.
+            if (target.IsDazed) target.Fumbled = true;
+            foreach (var opposingFighter in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
+            {
+                    opposingFighter.IsDazed = true;
+            }
+            foreach (var teamFighter in battlefield.Fighters.Where(x => x.TeamColor == attacker.TeamColor && (x != attacker)))
+            {
+                teamFighter.IsDazed = true;
+            }
+            if (target.IsDisoriented > 0) target.IsDisoriented += 2;
+            if (target.IsExposed > 0) target.IsExposed += 2;
+
             target.IsDazed = true;
             return true; //Successful attack, if we ever need to check that.
         }

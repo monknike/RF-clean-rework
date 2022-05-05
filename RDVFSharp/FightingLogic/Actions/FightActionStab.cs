@@ -13,6 +13,7 @@ namespace RDVFSharp.FightingLogic.Actions
             var attacker = initiatingActor;
             var target = battlefield.GetTarget();
             var requiredStamina = 10;
+            var damage = 0;
             var difficulty = 8; //Base difficulty, rolls greater than this amount will hit.
 
             //If opponent fumbled on their previous action they should become stunned.
@@ -31,6 +32,7 @@ namespace RDVFSharp.FightingLogic.Actions
             if (attacker.IsAggressive > 0)
             {//Apply attack bonus from move/teleport then reset it.
                 difficulty -= attacker.IsAggressive;
+                damage += attacker.IsAggressive;
                 attacker.IsAggressive = 0;
             }
 
@@ -54,20 +56,12 @@ namespace RDVFSharp.FightingLogic.Actions
             }
 
             if (roll >= attackTable.crit)
-            { //Critical Hit-- increased damage/effect, typically 3x damage if there are no other bonuses.
-                battlefield.OutputController.Hit.Add(" CRITICAL SUCCESS! ");
-                battlefield.OutputController.Hint.Add(attacker.Name + " can perform another action!");
-                // The only way the target can be stunned is if we set it to stunned with the action we're processing right now.
-                // That in turn is only possible if target had fumbled. So we restore the fumbled status, but keep the stun.
-                // That way we properly get a third action.
-                if (target.IsDazed) target.Fumbled = true;
-                foreach (var opposingFighter in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
-                {
-                    opposingFighter.IsDazed = true;
-                }
-                if (target.IsDisoriented > 0) target.IsDisoriented += 2;
-                if (target.IsExposed > 0) target.IsExposed += 2;
+            { //Critical Hit-- increased damage/effect.
+                battlefield.OutputController.Hit.Add(" CRITICAL HIT! ");
+                battlefield.OutputController.Hint.Add(attacker.Name + " landed a particularly vicious blow!");
+                damage += 10;
             }
+
 
             //The total mobility bonus generated. This will be split bewteen attack and defense.
             var totalBonus = Utils.RollDice(new List<int>() { 5, 5 }) - 1 + attacker.Strength;
@@ -78,6 +72,8 @@ namespace RDVFSharp.FightingLogic.Actions
                 target.StaminaDOT = (int)Math.Ceiling((double)totalBonus / 2);
                 target.StaminaDamage = 4;
                 target.ManaDamage = 0;
+                target.HitHp(damage);
+                target.HitStamina(damage);
                 battlefield.OutputController.Hit.Add(attacker.Name + " landed a strike against " + target.Name + " that will do damage over time for 3 turns!");
             }
 
