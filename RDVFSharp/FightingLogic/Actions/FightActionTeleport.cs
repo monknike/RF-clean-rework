@@ -72,10 +72,7 @@ namespace RDVFSharp.FightingLogic.Actions
                 // That in turn is only possible if target had fumbled. So we restore the fumbled status, but keep the stun.
                 // That way we properly get a third action.
                 if (target.IsDazed) target.Fumbled = true;
-                foreach (var opposingFighter in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
-                {
-                    opposingFighter.IsDazed = true;
-                }
+                battlefield.Fighters.ForEach(f => f.IsDazed = (f != attacker)); // Set all as dazed
                 if (target.IsDisoriented > 0) target.IsDisoriented += 2;
                 if (target.IsExposed > 0) target.IsExposed += 2;
             }
