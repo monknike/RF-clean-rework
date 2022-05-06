@@ -24,13 +24,17 @@ namespace RDVFSharp.Commands
                 var characterName = string.Join(' ', argsList.Skip(0));
 
                 var activeFighter = Plugin.CurrentBattlefield.GetFighter(character);
-
                 var NewTarget = Plugin.CurrentBattlefield.GetFighter(characterName);
+                var battlefield = Plugin.CurrentBattlefield;
+
                 if ((NewTarget != null) && (NewTarget.TeamColor != activeFighter.TeamColor))
                 {
                     {
                         activeFighter.CurrentTarget = NewTarget;
-                        Plugin.FChatClient.SendMessageInChannel($"Target successfully set to {NewTarget.Name} for {activeFighter.Name}.", channel);
+                        battlefield.OutputFighterStatuses();
+                        battlefield.OutputController.Hit.Add($"Target successfully set to {NewTarget.Name} for {activeFighter.Name}.");
+                        battlefield.OutputController.Broadcast(battlefield);
+                        
                     }
                 }
 
