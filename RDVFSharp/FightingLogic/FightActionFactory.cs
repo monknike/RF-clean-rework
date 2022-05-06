@@ -11,8 +11,8 @@ namespace RDVFSharp.FightingLogic
         {
             switch (actionName)
             {
-                case "Burn":
-                    return new FightActionBurn();
+                case "Drain":
+                    return new FightActionDrain();
                 case "Channel":
                     return new FightActionChannel();
                 case "Cleave":

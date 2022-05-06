@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RDVFSharp.FightingLogic.Actions
 {
-    class FightActionBurn : BaseFightAction
+    class FightActionDrain : BaseFightAction
     {
         public override bool Execute(int roll, Battlefield battlefield, Fighter initiatingActor, Fighter targetedActor)
         {

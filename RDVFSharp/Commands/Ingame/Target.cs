@@ -13,7 +13,7 @@ namespace RDVFSharp.Commands
 
         public override void ExecuteCommand(string character, IEnumerable<string> args, string channel)
         {
-            if (Plugin.CurrentBattlefield.IsAbleToAttack(character))
+            if ((Plugin.CurrentBattlefield.IsAbleToAttack(character)) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestrained == false) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestraining == false))
             {
                 if (args.Count() < 1)
                 {
@@ -32,7 +32,56 @@ namespace RDVFSharp.Commands
                     {
                         activeFighter.CurrentTarget = NewTarget;
                         battlefield.OutputFighterStatuses();
+                        battlefield.OutputController.Action.Add("Target");
                         battlefield.OutputController.Hit.Add($"Target successfully set to {NewTarget.Name} for {activeFighter.Name}.");
+                        if (activeFighter.IsEvading > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsEvading + " bonus to evasion and damage reduction.");
+                        }
+
+                        if (activeFighter.IsAggressive > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsAggressive + " bonus to accuracy and attack damage.");
+                        }
+
+                        if (activeFighter.StaminaDamage > 1)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Stamina and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                        }
+
+                        if (activeFighter.ManaDamage > 1)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                        }
+
+                        if (NewTarget.IsGuarding > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsGuarding + " bonus to evasion and damage reduction.");
+                        }
+                        if (NewTarget.IsEvading > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsEvading + " bonus to evasion and damage reduction.");
+                        }
+
+                        if (NewTarget.IsAggressive > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsAggressive + " bonus to accuracy and attack damage.");
+                        }
+
+                        if (NewTarget.StaminaDamage > 1)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Stamina and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                        }
+
+                        if (NewTarget.ManaDamage > 1)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                        }
+
+                        if (NewTarget.IsGuarding > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsGuarding + " bonus to evasion and damage reduction.");
+                        }
                         battlefield.OutputController.Broadcast(battlefield);
                         
                     }

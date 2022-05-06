@@ -21,6 +21,7 @@ namespace RDVFSharp
         public bool DisplayGrabbed { get; set; }
 
         private int currentFighter = 0;
+        private string currentTeam;
 
 
         public Battlefield(RendezvousFighting plugin)
@@ -176,7 +177,7 @@ namespace RDVFSharp
                 return Fighters.Where(x => x.IsDead == false).Select(x => x.TeamColor).ToList().Distinct().Count();
             }
         }
-
+        
         public void NextFighter()
         {
             currentFighter = (currentFighter == Fighters.Count - 1) ? 0 : currentFighter + 1;
