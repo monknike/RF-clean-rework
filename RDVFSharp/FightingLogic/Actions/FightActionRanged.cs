@@ -25,7 +25,6 @@ namespace RDVFSharp.FightingLogic.Actions
                 target.Fumbled = false;
             }
 
-            if (target.HPBurn > 1) difficulty -= 1;
             if (attacker.IsRestrained) difficulty += 4; //Up the difficulty considerably if the attacker is restrained.
             if (target.IsRestrained) difficulty += 4; //Ranged attacks during grapple are hard.
             if (target.IsRestrained) difficulty -= 2; //Lower the difficulty slightly if the target is restrained.

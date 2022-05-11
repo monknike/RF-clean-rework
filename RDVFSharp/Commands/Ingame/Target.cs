@@ -54,34 +54,35 @@ namespace RDVFSharp.Commands
                             battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
                         }
 
-                        if (NewTarget.IsGuarding > 0)
+                        if (activeFighter.IsGuarding > 0)
                         {
                             battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsGuarding + " bonus to evasion and damage reduction.");
                         }
                         if (NewTarget.IsEvading > 0)
                         {
-                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsEvading + " bonus to evasion and damage reduction.");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsEvading + " bonus to evasion and damage reduction.");
                         }
 
                         if (NewTarget.IsAggressive > 0)
                         {
-                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsAggressive + " bonus to accuracy and attack damage.");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsAggressive + " bonus to accuracy and attack damage.");
                         }
 
                         if (NewTarget.StaminaDamage > 1)
                         {
-                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Stamina and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Stamina and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
                         }
 
                         if (NewTarget.ManaDamage > 1)
                         {
-                            battlefield.OutputController.Hint.Add(activeFighter.Name + " is taking " + activeFighter.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
                         }
 
                         if (NewTarget.IsGuarding > 0)
                         {
-                            battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsGuarding + " bonus to evasion and damage reduction.");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsGuarding + " bonus to evasion and damage reduction.");
                         }
+
                         battlefield.OutputController.Broadcast(battlefield);
                         
                     }
