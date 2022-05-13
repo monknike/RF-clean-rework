@@ -39,6 +39,7 @@ namespace RDVFSharp
 
         public void InitialSetup()
         {
+            
             PickInitialActor();
             SetInitialTargets();
             OutputController.Hit.Add("Game started!");
@@ -216,7 +217,7 @@ namespace RDVFSharp
 
         public void PickInitialActor()
         {
-            currentFighter = Utils.GetRandomNumber(0, Fighters.Count - 1);
+            currentFighter = Utils.GetRandomNumber(0, Fighters.Count);
         }
 
         public bool IsThisCharactersTurn(string characterName)
