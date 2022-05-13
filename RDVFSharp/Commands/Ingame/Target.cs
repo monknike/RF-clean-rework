@@ -7,13 +7,13 @@ using System.Reflection;
 
 namespace RDVFSharp.Commands
 {
-    public class Target : Action
+    public class Target : BaseCommand<RendezvousFighting>
     {
         public override string Description => "Sets your target.";
 
         public override void ExecuteCommand(string character, IEnumerable<string> args, string channel)
         {
-            if ((Plugin.CurrentBattlefield.IsAbleToAttack(character)) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestrained == false) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestraining == false))
+            if ((Plugin.CurrentBattlefield.IsAbleToAttack(character)) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestraining == false))
             {
                 if (args.Count() < 1)
                 {
@@ -58,11 +58,14 @@ namespace RDVFSharp.Commands
                         {
                             battlefield.OutputController.Hint.Add(activeFighter.Name + " has a temporary +" + activeFighter.IsGuarding + " bonus to evasion and damage reduction.");
                         }
+                        if (activeFighter.IsGrabbable == NewTarget.IsGrabbable && activeFighter.IsGrabbable>0 && activeFighter.IsGrabbable<10)
+                        {
+                            battlefield.OutputController.Hint.Add(activeFighter.Name + " and " + NewTarget.Name + " are in grappling range.");
+                        }
                         if (NewTarget.IsEvading > 0)
                         {
                             battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsEvading + " bonus to evasion and damage reduction.");
                         }
-
                         if (NewTarget.IsAggressive > 0)
                         {
                             battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsAggressive + " bonus to accuracy and attack damage.");
@@ -70,12 +73,12 @@ namespace RDVFSharp.Commands
 
                         if (NewTarget.StaminaDamage > 1)
                         {
-                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Stamina and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Stamina and HP for " + (NewTarget.HPBurn - 1) + " turn(s).");
                         }
 
                         if (NewTarget.ManaDamage > 1)
                         {
-                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Mana and HP for " + (activeFighter.HPBurn - 1) + " turn(s).");
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is taking " + NewTarget.HPDOT + " damage to both Mana and HP for " + (NewTarget.HPBurn - 1) + " turn(s).");
                         }
 
                         if (NewTarget.IsGuarding > 0)
@@ -102,7 +105,7 @@ namespace RDVFSharp.Commands
             }
             else
             {
-                Plugin.FChatClient.SendMessageInChannel("This is not your turn.", channel);
+                Plugin.FChatClient.SendMessageInChannel("You may not change targets right now.", channel);
             }
         }
     }

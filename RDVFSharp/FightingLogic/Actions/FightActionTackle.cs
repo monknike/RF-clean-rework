@@ -67,7 +67,6 @@ namespace RDVFSharp.FightingLogic.Actions
                 damage += 10;
             }
 
-            battlefield.InGrabRange = true;//A regular tackle will put you close enough to your opponent to initiate a grab.
             battlefield.OutputController.Hit.Add(attacker.Name + " TACKLED " + target.Name + ". " + attacker.Name + " can take another action while their opponent is stunned!");
 
             //Deal all the actual damage/effects here.
@@ -78,6 +77,39 @@ namespace RDVFSharp.FightingLogic.Actions
             battlefield.Fighters.ForEach(f => f.IsDazed = (f != attacker)); // Set all as dazed
             if (target.IsDisoriented > 0) target.IsDisoriented += 2;
             if (target.IsExposed > 0) target.IsExposed += 2;
+
+            if (attacker.IsGrabbable == 0 && target.IsGrabbable == 0)
+            {
+                attacker.IsGrabbable += 1;
+                target.IsGrabbable += 1;
+            }
+            if (attacker.IsGrabbable == 0 && target.IsGrabbable == 1)
+            {
+                attacker.IsGrabbable += 1;
+            }
+            if (attacker.IsGrabbable == 1 && target.IsGrabbable == 0)
+            {
+                attacker.IsGrabbable += 1;
+                target.IsGrabbable += 2;
+            }
+            if (attacker.IsGrabbable == 2 && target.IsGrabbable == 1)
+            {
+                attacker.IsGrabbable -= 1;
+            }
+            if (attacker.IsGrabbable == 1 && target.IsGrabbable == 2)
+            {
+                attacker.IsGrabbable += 1;
+            }
+            if (attacker.IsGrabbable == 2 && target.IsGrabbable == 0)
+            {
+                attacker.IsGrabbable -= 1;
+                target.IsGrabbable += 1;
+            }
+            if (attacker.IsGrabbable == 0 && target.IsGrabbable == 2)
+            {
+                attacker.IsGrabbable += 2;
+            }
+
             return true; //Successful attack, if we ever need to check that.
         }
     }

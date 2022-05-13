@@ -89,6 +89,8 @@ namespace RDVFSharp.FightingLogic.Actions
             //If you're being grappled and you hit the opponent that will make it a little easier to escape later on.
             if (attacker.IsRestrained) attacker.IsEscaping += (int)Math.Floor((double)damage / 5);
 
+            attacker.IsGrabbable = 0;
+            target.IsGrabbable = 0;
             damage = Math.Max(damage, 1);
             target.HitHp(damage);
             attacker.CurseUsed += 10;

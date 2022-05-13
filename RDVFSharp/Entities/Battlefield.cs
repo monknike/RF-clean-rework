@@ -12,6 +12,8 @@ namespace RDVFSharp
     {
         public RendezvousFighting Plugin { get; }
         public List<Fighter> Fighters { get; set; }
+        public List<Team> Teams { get; set; }
+        public Team Team { get; set; }
         public OutputController OutputController { get; set; }
 
         public string Stage { get; set; }
@@ -41,7 +43,7 @@ namespace RDVFSharp
             SetInitialTargets();
             OutputController.Hit.Add("Game started!");
             OutputController.Hit.Add("FIGHTING STAGE: " + Stage + " - " + GetActor().Name + " goes first!");
-            OutputFighterStatuses(); // Creates the fighter status blocks (HP/Mana/Stamina)
+            OutputFighterStatuses(); // Creates the fighter status blocks (HP/Mana/Stamina) 
             OutputFighterStats(); // Creates the fighter stat blocks (STR/DEX/END/INT/WIL)
             OutputController.Info.Add("[url=http://www.f-list.net/c/rendezvous%20fight/]Visit this page for game information[/url]");
             IsInProgress = true;
@@ -199,6 +201,9 @@ namespace RDVFSharp
             if (Fighters[currentFighter].IsDazed)
             {
                 Fighters[currentFighter].IsDazed = false;
+                if (Fighters[currentFighter].HPBurn > 0) Fighters[currentFighter].HPBurn += 1;
+                if (Fighters[currentFighter].ManaDamage > 0) Fighters[currentFighter].ManaDamage += 1;
+                if (Fighters[currentFighter].StaminaDamage > 0) Fighters[currentFighter].StaminaDamage += 1;
                 NextFighter();
             }
 
