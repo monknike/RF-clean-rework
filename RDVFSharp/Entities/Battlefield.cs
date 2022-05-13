@@ -12,8 +12,6 @@ namespace RDVFSharp
     {
         public RendezvousFighting Plugin { get; }
         public List<Fighter> Fighters { get; set; }
-        public List<Team> Teams { get; set; }
-        public Team Team { get; set; }
         public OutputController OutputController { get; set; }
 
         public string Stage { get; set; }
@@ -39,7 +37,6 @@ namespace RDVFSharp
 
         public void InitialSetup()
         {
-            
             PickInitialActor();
             SetInitialTargets();
             OutputController.Hit.Add("Game started!");
