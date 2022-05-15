@@ -68,7 +68,7 @@ namespace RDVFSharp
             }
         }
 
-        public void ReassignInitialTargets()
+        public void ReassignInitialTargets() // Doing the multiple repeats in here for the occasion where multi-fights occur
         {
             foreach (var fighter in Fighters)
             {
@@ -81,6 +81,16 @@ namespace RDVFSharp
 
                     {
                         fighter.CurrentTarget = opponents.First();
+                        if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                        {
+                            fighter.CurrentTarget = opponents.First();
+                            if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                            {
+                                fighter.CurrentTarget = opponents.First();
+                            }
+                        }
                     }
 
                     foreach (var opponent in opponents.Where(x => fighter.CurrentTarget == x))
@@ -97,6 +107,16 @@ namespace RDVFSharp
 
                     {
                         fighter.CurrentTarget = opponents.First();
+                        if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                        {
+                            fighter.CurrentTarget = opponents.First();
+                            if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                            {
+                                fighter.CurrentTarget = opponents.First();
+                            }
+                        }
                     }
                     foreach (var opponent in opponents.Where(x => fighter.CurrentTarget == x))
                     {
@@ -213,6 +233,12 @@ namespace RDVFSharp
             {
                 return Fighters.Where(x => x.IsDead == false).Select(x => x.TeamColor).ToList().Distinct().Count();
             }
+        }
+
+        public void TurnOrder()
+        {
+            List<Fighter> TurnOrder = new List<Fighter>();
+            
         }
 
         public void NextFighter()
