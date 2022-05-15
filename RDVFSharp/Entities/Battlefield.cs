@@ -39,6 +39,7 @@ namespace RDVFSharp
         {
             PickInitialActor();
             SetInitialTargets();
+            ReassignInitialTargets();
             OutputController.Hit.Add("Game started!");
             OutputController.Hit.Add("FIGHTING STAGE: " + Stage + " - " + GetActor().Name + " goes first!");
             OutputFighterStatuses(); // Creates the fighter status blocks (HP/Mana/Stamina) 
@@ -53,17 +54,54 @@ namespace RDVFSharp
             foreach (var teamColor in Fighters.Select(x => x.TeamColor).Distinct())
             {
                 var opponents = Fighters.Where(x => x.TeamColor != teamColor).OrderBy(x => new Random().Next()).ToList();
-                var counter = 0;
                 var numberOfOpponentsAvailable = opponents.Count();
+                var random = new Random();
+                int index = random.Next(opponents.Count());
                 if(numberOfOpponentsAvailable == 0)
                 {
                     throw new Exception("There are no opponents available.");
                 }
                 foreach (var teamMember in Fighters.Where(x => x.TeamColor == teamColor).ToList())
                 {
-                    var stillHasFightersofOppositeTeams = (counter + 1) >= numberOfOpponentsAvailable;
-                    var indexOfFighterToAttribute = stillHasFightersofOppositeTeams ? counter : numberOfOpponentsAvailable - 1;
-                    teamMember.CurrentTarget = opponents[indexOfFighterToAttribute];
+                    teamMember.CurrentTarget = opponents[index];
+                }
+            }
+        }
+
+        public void ReassignInitialTargets()
+        {
+            foreach (var fighter in Fighters)
+            {
+                foreach (var teamMember in Fighters.Where(x => x.TeamColor == fighter.TeamColor && x.Name != fighter.Name).ToList())
+
+                {
+                    var opponents = Fighters.Where(x => x.TeamColor != fighter.TeamColor && x != teamMember.CurrentTarget).OrderBy(x => new Random().Next()).ToList();
+
+                    if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                    {
+                        fighter.CurrentTarget = opponents.First();
+                    }
+
+                    foreach (var opponent in opponents.Where(x => fighter.CurrentTarget == x))
+                    {
+                        opponent.CurrentTarget = fighter;
+                    }
+
+                }
+
+                foreach (var Opponent in Fighters.Where(x => x.TeamColor != fighter.TeamColor).ToList())
+                {
+                    var opponents = Fighters.Where(x => x.TeamColor != fighter.TeamColor && x != Opponent.CurrentTarget).OrderBy(x => new Random().Next()).ToList();
+                    if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                    {
+                        fighter.CurrentTarget = opponents.First();
+                    }
+                    foreach (var opponent in opponents.Where(x => fighter.CurrentTarget == x))
+                    {
+                        opponent.CurrentTarget = fighter;
+                    }
                 }
             }
         }
