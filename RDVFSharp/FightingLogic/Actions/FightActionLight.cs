@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace RDVFSharp.FightingLogic.Actions
 {
@@ -73,18 +74,19 @@ namespace RDVFSharp.FightingLogic.Actions
 
             //Deal all the actual damage/effects here.
 
-            if (battlefield.InGrabRange)
-            {// Succesful attacks will beat back the grabber before they can grab you, but not if you're already grappling.
-                if (!attacker.IsRestrained && !target.IsRestrained)
+            foreach (var opponent in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
+            {
+                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable)
                 {
-                    battlefield.InGrabRange = false;
-                    battlefield.OutputController.Hit.Add(attacker.Name + " distracted " + target.Name + " with the attack and was able to move out of grappling range!");
+                    battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + opponent.Name + " and is now out of grabbing range.");
                 }
             }
 
+
             //If you're being grappled and you hit the opponent that will make it a little easier to escape later on.
             if (attacker.IsRestrained) attacker.IsEscaping += (int)Math.Floor((double)damage / 5);
-
+            attacker.IsGrabbable = 0;
+            target.IsGrabbable = 0;
             damage = Math.Max(damage, 1);
             target.HitHp(damage);
             target.HitStamina(damage);

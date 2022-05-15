@@ -94,12 +94,17 @@ namespace RDVFSharp.FightingLogic.Actions
                 battlefield.OutputController.Hit.Add(attacker.Name + " gained mobility bonuses against " + target.Name + " for one turn!");
             }
 
-            if (battlefield.InGrabRange)
+            foreach (var opponent in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
             {
-                battlefield.OutputController.Hit.Add(attacker.Name + " moved away!");
-                battlefield.InGrabRange = false;
-                battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + target.Name + " and is now out of grabbing range.");
+                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable)
+                {
+                    attacker.IsGrabbable = 0;
+                    battlefield.OutputController.Hit.Add(attacker.Name + " moved away!");
+                    battlefield.InGrabRange = false;
+                    battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + opponent.Name + " and is now out of grabbing range.");
+                }
             }
+
             return true; //Successful attack, if we ever need to check that.
         }
     }

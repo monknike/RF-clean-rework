@@ -101,7 +101,8 @@ namespace RDVFSharp.FightingLogic.Actions
             }
 
             //Deal all the actual damage/effects here.
-
+            attacker.IsGrabbable = 0;
+            target.IsGrabbable = 0;
             damage = Math.Max(damage, 1);
             target.HitHp(damage);
             //target.IsStunned = true;

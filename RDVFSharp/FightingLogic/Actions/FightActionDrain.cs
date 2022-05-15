@@ -62,10 +62,20 @@ namespace RDVFSharp.FightingLogic.Actions
                 damage += 10;
             }
 
+            foreach (var opponent in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
+            {
+                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable)
+                {
+                    battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + opponent.Name + " and is now out of grabbing range.");
+                }
+            }
+
             //The total mobility bonus generated. This will be split bewteen attack and defense.
             var totalBonus = Utils.RollDice(new List<int>() { 5, 5 }) - 1 + attacker.Spellpower;
 
             {
+                attacker.IsGrabbable = 0;
+                target.IsGrabbable = 0;
                 target.HPDOT = (int)Math.Ceiling((double)totalBonus / 2);
                 target.HPBurn = 4;
                 target.ManaDOT = (int)Math.Ceiling((double)totalBonus / 2);
@@ -76,12 +86,7 @@ namespace RDVFSharp.FightingLogic.Actions
                 battlefield.OutputController.Hit.Add(attacker.Name + " landed a strike against " + target.Name + " that will do damage over time for 3 turns!");
             }
 
-            if (battlefield.InGrabRange)
-            {
-                battlefield.OutputController.Hit.Add(attacker.Name + " moved away!");
-                battlefield.InGrabRange = false;
-                battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + target.Name + " and is now out of grabbing range.");
-            }
+
 
             return true; //Successful attack, if we ever need to check that.
         }

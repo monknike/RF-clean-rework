@@ -37,8 +37,6 @@ namespace RDVFSharp.FightingLogic
                     return new FightActionLight();
                 case "Magic":
                     return new FightActionMagic();
-                case "Mana":
-                    return new FightActionMana();
                 case "Manastorm":
                     ThrowIfNotTeamFight(isTeamFight);
                     return new FightActionManastorm();

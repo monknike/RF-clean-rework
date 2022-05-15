@@ -6,7 +6,10 @@ namespace RDVFSharp.Commands
     {
         public override void ExecuteCommand(string character, IEnumerable<string> args, string channel)
         {
-            if (!Plugin.CurrentBattlefield.InGrabRange)
+            var attacker = Plugin.CurrentBattlefield.GetActor();
+            var target = Plugin.CurrentBattlefield.GetTarget();
+            
+            if ((attacker.IsRestrained == false && target.IsRestrained == false && attacker.IsRestraining == false && target.IsRestraining == false) && ((attacker.IsGrabbable == 0) || (attacker.IsGrabbable != target.IsGrabbable)))
             {
                 base.ExecuteCommand(character, args, channel);
             }
