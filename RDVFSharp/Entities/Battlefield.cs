@@ -235,12 +235,6 @@ namespace RDVFSharp
             }
         }
 
-        public void TurnOrder()
-        {
-            List<Fighter> TurnOrder = new List<Fighter>();
-            
-        }
-
         public void NextFighter()
         {
             currentFighter = (currentFighter == Fighters.Count - 1) ? 0 : currentFighter + 1;
