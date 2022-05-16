@@ -17,7 +17,14 @@ namespace RDVFSharp.FightingLogic.Actions
             var requiredStam = 5;
 
             var difficulty = 6; //Base difficulty, rolls greater than this amount will hit.
+            var others = battlefield.Fighters.Where(x => x.Name != attacker.Name).OrderBy(x => new Random().Next()).ToList();
 
+
+
+            foreach (var fighter in others)
+            {
+                if (fighter.CurrentTarget == attacker.CurrentTarget) difficulty += 2;
+            }
             if (target.IsExposed > 0) difficulty -= 2; // If opponent left themself wide open after a failed strong attack, they'll be easier to hit.
 
             if (target.IsEvading > 0)

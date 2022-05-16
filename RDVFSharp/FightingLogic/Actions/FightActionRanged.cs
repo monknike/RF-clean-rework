@@ -18,7 +18,14 @@ namespace RDVFSharp.FightingLogic.Actions
             damage += Math.Min(attacker.Strength, attacker.Spellpower);
             var requiredStam = 10;
             var difficulty = 10; //Base difficulty, rolls greater than this amount will hit.
+            var others = battlefield.Fighters.Where(x => x.Name != attacker.Name).OrderBy(x => new Random().Next()).ToList();
 
+
+
+            foreach (var fighter in others)
+            {
+                if (fighter.CurrentTarget == attacker.CurrentTarget) difficulty += 2;
+            }
             //If opponent fumbled on their previous action they should become stunned.
             if (target.Fumbled)
             {

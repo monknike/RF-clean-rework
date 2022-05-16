@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace RDVFSharp.FightingLogic.Actions
 {
@@ -17,7 +18,14 @@ namespace RDVFSharp.FightingLogic.Actions
             var difficulty = 10; //Base difficulty, rolls greater than this amount will hit.
             difficulty += (int)Math.Floor((double)(target.Strength - attacker.Strength) / 2); //Up the difficulty of submission moves based on the relative strength of the combatants.
             //difficulty *= (int)Math.Ceiling((double)2 * target.HP / target.MaxHP);//Multiply difficulty with percentage of opponent's health and 2, so that 50% health yields normal difficulty.
+            var others = battlefield.Fighters.Where(x => x.Name != attacker.Name).OrderBy(x => new Random().Next()).ToList();
 
+
+
+            foreach (var fighter in others)
+            {
+                if (fighter.CurrentTarget == attacker.CurrentTarget) difficulty += 2;
+            }
             if (target.HP * 100 / target.MaxHP > 50) // If target is above 50% HP this is a bad move.
             {
                 damage /= 2;
