@@ -283,7 +283,7 @@ namespace RDVFSharp.Entities
             var manaPercent = Math.Ceiling((double)(100 * Mana / ManaCap));
 
             var message = $"[color={TeamColor}]" + Name;
-            message += "[/color][color=yellow] hit points: ";
+            message += "[/color][color=green] hit points: ";
             if (HP > DizzyValue)
             {
                 message += HP;
@@ -297,7 +297,7 @@ namespace RDVFSharp.Entities
             message += "|" + this.MaxHP;
             message += " (" + hpPercent + "%)";
 
-            message += "[/color][color=green] stamina: " + Stamina;
+            message += "[/color][color=yellow] stamina: " + Stamina;
             if (staminaDelta > 0) message += "[color=cyan] (+" + staminaDelta + ")[/color]";
             if (staminaDelta < 0) message += "[color=red] (" + staminaDelta + ")[/color]";
 
