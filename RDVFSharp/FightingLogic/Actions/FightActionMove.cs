@@ -55,6 +55,8 @@ namespace RDVFSharp.FightingLogic.Actions
             { //If you're grappling someone they are freed, regardless of the outcome.
                 battlefield.OutputController.Hint.Add(attacker.Name + " used ESCAPE. " + target.Name + " is no longer being grappled. ");
                 target.RemoveGrappler(attacker);
+                attacker.IsRestraining = false;
+                target.IsRestrained = false;
                 tempGrappleFlag = false;
             }
 
@@ -87,6 +89,8 @@ namespace RDVFSharp.FightingLogic.Actions
                 attacker.RemoveGrappler(target);
                 tempGrappleFlag = false;
                 attacker.IsEvading = (int)Math.Floor((double)totalBonus / 2);
+                attacker.IsRestrained = false;
+                target.IsRestraining = false;
             }
             else
             {
