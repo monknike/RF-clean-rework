@@ -21,7 +21,7 @@ namespace RDVFSharp.Commands
             {
                 foreach (var other in others)
                 {
-                    if ((!otherother.IsGrappling(target) && !target.IsGrappling(otherother) && !attacker.IsGrappling(other) && !other.IsGrappling(attacker) && !target.IsGrappling(attacker) && !attacker.IsGrappling(target) || (attacker.IsGrabbable != target.IsGrabbable)))
+                    if ((!otherother.IsGrappling(target) && !target.IsGrappling(otherother) && !attacker.IsGrappling(other) && !other.IsGrappling(attacker) && !target.IsGrappling(attacker) && !attacker.IsGrappling(target) && (attacker.IsGrabbable != target.IsGrabbable) || (attacker.IsGrabbable == 0)))
                     {
                         base.ExecuteCommand(character, args, channel);
                     }
