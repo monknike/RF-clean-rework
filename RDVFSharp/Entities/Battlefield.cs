@@ -221,6 +221,10 @@ namespace RDVFSharp
 
             CheckTargetCoherenceAndReassign();
             NextFighter();
+            for (var i = 0; i < Fighters.Count; i++)
+            {
+                TurnOrder[i].FinalStand();
+            }
         }
 
         private void CheckIfFightIsOver()
@@ -323,6 +327,12 @@ namespace RDVFSharp
             if (TurnOrder[currentFighter].IsStunned > 1)
             {
                 TurnOrder[currentFighter].IsStunned--;
+                NextFighter();
+            }
+
+            if (TurnOrder[currentFighter].IsDazed == true)
+            {
+                TurnOrder[currentFighter].IsDazed = false;
                 NextFighter();
             }
         }

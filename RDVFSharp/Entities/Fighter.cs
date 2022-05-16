@@ -332,8 +332,18 @@ namespace RDVFSharp.Entities
             return message;
         }
 
+        public void FinalStand()
+        {
+            var attacker = Battlefield.GetActor();
+
+            if (attacker.HP < HPDOT)
+            {
+                Battlefield.OutputController.Hit.Add("This is " + attacker.Name + "'s final stand, do all the damage you can on this turn!");
+            }
+        }
         public void UpdateCondition()
         {
+            
             if (IsGrappledBy.Count != 0 && IsRestrained == false) IsRestrained = true;
             if (IsGrappledBy.Count == 0 && IsRestrained == true) IsRestrained = false;
 
@@ -386,6 +396,7 @@ namespace RDVFSharp.Entities
                 if (IsExposed == 0) Battlefield.OutputController.Hint.Add(Name + " has recovered from the missed attack and is no longer Exposed!");
             }
 
+
             if (HP <= KoValue && IsUnconscious == false)
             {
                 IsUnconscious = true;
@@ -411,7 +422,7 @@ namespace RDVFSharp.Entities
                 SetTarget = 0;
                 HPDOT = 0;
                 HPBurn = 0;
-                foreach (var enemies in this.Battlefield.Fighters.Where(x => x.TeamColor != this.TeamColor && x.CurrentTarget == this))
+                foreach (var enemies in this.Battlefield.TurnOrder.Where(x => x.TeamColor != this.TeamColor && x.CurrentTarget == this))
                 {
                     enemies.IsEscaping = 0;
                     enemies.IsRestrained = false;
