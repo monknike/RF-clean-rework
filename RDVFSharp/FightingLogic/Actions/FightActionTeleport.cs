@@ -101,7 +101,6 @@ namespace RDVFSharp.FightingLogic.Actions
                 {
                     attacker.IsGrabbable = 0;
                     battlefield.OutputController.Hit.Add(attacker.Name + " moved away!");
-                    battlefield.InGrabRange = false;
                     battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + opponent.Name + " and is now out of grabbing range.");
                 }
             }

@@ -96,8 +96,6 @@ namespace RDVFSharp.FightingLogic.Actions
                 battlefield.OutputController.Hint.Add(target.Name + " is in a SUBMISSION hold.");
             }
 
-            //If we managed to make a submission without being in grab range, we are certainly in grabe range afterwards.
-            if (!battlefield.InGrabRange) battlefield.InGrabRange = true;
 
             damage = Math.Max(damage, 1);
             target.HitHp(damage);

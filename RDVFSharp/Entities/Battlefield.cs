@@ -22,7 +22,6 @@ namespace RDVFSharp
         public string Stage { get; set; }
         public bool IsInProgress { get; set; }
 
-        public bool InGrabRange { get; set; }
         public bool DisplayGrabbed { get; set; }
 
         private int currentFighter = 0;
@@ -35,7 +34,6 @@ namespace RDVFSharp
             Fighters = new List<Fighter>();
             Stage = StageSelect.SelectRandom();
 
-            InGrabRange = false;
             DisplayGrabbed = true;
             IsInProgress = false;
         }

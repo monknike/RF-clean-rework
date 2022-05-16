@@ -81,7 +81,6 @@ namespace RDVFSharp.FightingLogic.Actions
             if (attacker.IsGrappling(target))
             {
                 target.RemoveGrappler(attacker);
-                battlefield.InGrabRange = false;//A throw will put the fighters out of grappling range.
                 if (target.IsGrappling(attacker))
                 {
                     attacker.RemoveGrappler(target);
@@ -97,13 +96,11 @@ namespace RDVFSharp.FightingLogic.Actions
             else if (target.IsGrappling(attacker))
             {
                 attacker.RemoveGrappler(target);
-                battlefield.InGrabRange = false;//A throw will put the fighters out of grappling range.
                 battlefield.OutputController.Hit.Add(attacker.Name + " found a hold and THREW " + target.Name + " off! " + attacker.Name + " is no longer at a penalty from being grappled!");
                 //battlefield.OutputController.Hint.Add(target.Name + ", you should make your post, but you should only emote being hit, do not try to perform any other actions.");
             }
             else
             {
-                battlefield.InGrabRange = true;//A regular tackle will put you close enough to your opponent to initiate a grab.
                 battlefield.OutputController.Hit.Add(attacker.Name + " TACKLED " + target.Name + ". " + attacker.Name + " can take another action while their opponent is stunned!");
                 //battlefield.OutputController.Hint.Add(target.Name + ", you should make your post, but you should only emote being hit, do not try to perform any other actions.");
             }
