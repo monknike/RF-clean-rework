@@ -13,7 +13,7 @@ namespace RDVFSharp.Commands
             
                 Plugin.FChatClient.SendPrivateMessage("[u][b]General Commands[/b][/u]" + "\n" +
                     "\n" +
-                    "[b]!ready[/b]: Inserts your character into the battlefield." + "\n" +
+                    "[b]!ready[/b]: Inserts your character into the battlefield. Preferably followed by one of four colours (red/blue/yellow/purple). And also preferably done in such a way that each team member readies right after each other, so that the status looks better. Example: !ready red" + "\n" +
                     "[b]!start[/b]: Starts the match." + "\n" +
                     "[b]!register[/b]: Registers you with the fight bot. Must be followed by your STR, DEX, RES, SPW, and WIL values, in that order. Example: !register 5 8 8 1 2" + "\n" +
                     "[b]!restat[/b]: Changes your stats on the fight bot. Must be followed by your STR, DEX, RES, SPW, and WIL values, in that order. Example: !register 5 8 8 1 2" + "\n" +
