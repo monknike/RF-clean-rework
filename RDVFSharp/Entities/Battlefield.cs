@@ -12,6 +12,11 @@ namespace RDVFSharp
     {
         public RendezvousFighting Plugin { get; }
         public List<Fighter> Fighters { get; set; }
+        public List<Fighter> TeamRed { get; set; }
+        public List<Fighter> TeamBlue { get; set; }
+        public List<Fighter> TeamYellow { get; set; }
+        public List<Fighter> TeamPurple { get; set; }
+        public List<Fighter> TurnOrder { get; set; }
         public OutputController OutputController { get; set; }
 
         public string Stage { get; set; }
@@ -21,7 +26,7 @@ namespace RDVFSharp
         public bool DisplayGrabbed { get; set; }
 
         private int currentFighter = 0;
-
+        private int initialActor = 0;
 
         public Battlefield(RendezvousFighting plugin)
         {
@@ -37,8 +42,10 @@ namespace RDVFSharp
 
         public void InitialSetup()
         {
+            JoinTeams();
             PickInitialActor();
             SetInitialTargets();
+            SetTurnOrder();
             ReassignInitialTargets();
             OutputController.Hit.Add("Game started!");
             OutputController.Hit.Add("FIGHTING STAGE: " + Stage + " - " + GetActor().Name + " goes first!");
@@ -205,10 +212,10 @@ namespace RDVFSharp
         {
             for (var i = 0; i < Fighters.Count; i++)
             {
-                Fighters[i].UpdateCondition();
+                TurnOrder[i].UpdateCondition();
             }
 
-            Fighters[currentFighter].Regen();
+            TurnOrder[currentFighter].Regen();
 
             CheckIfFightIsOver();
 
@@ -234,38 +241,88 @@ namespace RDVFSharp
                 return Fighters.Where(x => x.IsDead == false).Select(x => x.TeamColor).ToList().Distinct().Count();
             }
         }
+        public void JoinTeams()
+        {
+            TeamRed = new List<Fighter>();
+            TeamBlue = new List<Fighter>();
+            TeamYellow = new List<Fighter>();
+            TeamPurple = new List<Fighter>();
+
+            foreach (var fighter in Fighters.Where(x => x.TeamColor == "red"))
+            {
+                TeamRed.Add(fighter);
+            }
+
+            foreach (var fighter in Fighters.Where(x => x.TeamColor == "blue"))
+            {
+                TeamBlue.Add(fighter);
+            }
+
+            foreach (var fighter in Fighters.Where(x => x.TeamColor == "yellow"))
+            {
+                TeamYellow.Add(fighter);
+            }
+
+            foreach (var fighter in Fighters.Where(x => x.TeamColor == "purple"))
+            {
+                TeamPurple.Add(fighter);
+            }
+        }
+
+        public void SetTurnOrder()
+        {
+            TurnOrder = new List<Fighter>();
+
+
+
+            if (TeamRed.Count > 0) TurnOrder.Add(TeamRed[0]);
+            if (TeamBlue.Count > 0) TurnOrder.Add(TeamBlue[0]);
+            if (TeamYellow.Count > 0) TurnOrder.Add(TeamYellow[0]);
+            if (TeamPurple.Count > 0) TurnOrder.Add(TeamPurple[0]);
+            if (TeamRed.Count > 1) TurnOrder.Add(TeamRed[1]);
+            if (TeamBlue.Count > 1) TurnOrder.Add(TeamBlue[1]);
+            if (TeamYellow.Count > 1) TurnOrder.Add(TeamYellow[1]);
+            if (TeamPurple.Count > 1) TurnOrder.Add(TeamPurple[1]);
+            if (TeamRed.Count > 2) TurnOrder.Add(TeamRed[2]);
+            if (TeamBlue.Count > 2) TurnOrder.Add(TeamBlue[2]);
+            if (TeamYellow.Count > 2) TurnOrder.Add(TeamYellow[2]);
+            if (TeamPurple.Count > 2) TurnOrder.Add(TeamPurple[2]);
+            if (TeamRed.Count > 3) TurnOrder.Add(TeamRed[3]);
+            if (TeamBlue.Count > 3) TurnOrder.Add(TeamBlue[3]); 
+            if (TeamYellow.Count > 3) TurnOrder.Add(TeamYellow[3]); 
+            if (TeamPurple.Count > 3) TurnOrder.Add(TeamPurple[3]);
+            if (TeamRed.Count > 4) TurnOrder.Add(TeamRed[4]);
+            if (TeamBlue.Count > 4) TurnOrder.Add(TeamBlue[4]);
+            if (TeamYellow.Count > 4) TurnOrder.Add(TeamYellow[4]);
+            if (TeamPurple.Count > 4) TurnOrder.Add(TeamPurple[4]);
+            if (TeamRed.Count > 5) TurnOrder.Add(TeamRed[5]);
+            if (TeamBlue.Count > 5) TurnOrder.Add(TeamBlue[5]);
+            if (TeamYellow.Count > 5) TurnOrder.Add(TeamYellow[5]);
+            if (TeamPurple.Count > 5) TurnOrder.Add(TeamPurple[5]);
+        }
 
         public void NextFighter()
         {
-            currentFighter = (currentFighter == Fighters.Count - 1) ? 0 : currentFighter + 1;
+            currentFighter = (currentFighter == TurnOrder.Count - 1) ? 0 : currentFighter + 1;
 
-            if (Fighters[currentFighter].HPBurn > 0 && Fighters[currentFighter].IsStunned < 2)
+            if (TurnOrder[currentFighter].HPBurn > 0 && TurnOrder[currentFighter].IsStunned < 2 && TurnOrder[currentFighter].IsDazed == false)
             {
-                Fighters[currentFighter].HPBurn--;
+                TurnOrder[currentFighter].HPBurn--;
             }
 
-            if (Fighters[currentFighter].ManaDamage > 0 && Fighters[currentFighter].IsStunned < 2)
+            if (TurnOrder[currentFighter].ManaDamage > 0 && TurnOrder[currentFighter].IsStunned < 2 && TurnOrder[currentFighter].IsDazed == false)
             {
-                Fighters[currentFighter].ManaDamage--;
+                TurnOrder[currentFighter].ManaDamage--;
             }
 
-            if (Fighters[currentFighter].StaminaDamage > 0 && Fighters[currentFighter].IsStunned < 2)
+            if (TurnOrder[currentFighter].StaminaDamage > 0 && TurnOrder[currentFighter].IsStunned < 2 && TurnOrder[currentFighter].IsDazed == false)
             {
-                Fighters[currentFighter].StaminaDamage--;
+                TurnOrder[currentFighter].StaminaDamage--;
             }
 
-            if (Fighters[currentFighter].IsDazed)
+            if (TurnOrder[currentFighter].IsStunned > 1)
             {
-                Fighters[currentFighter].IsDazed = false;
-                if (Fighters[currentFighter].HPBurn > 0) Fighters[currentFighter].HPBurn += 1;
-                if (Fighters[currentFighter].ManaDamage > 0) Fighters[currentFighter].ManaDamage += 1;
-                if (Fighters[currentFighter].StaminaDamage > 0) Fighters[currentFighter].StaminaDamage += 1;
-                NextFighter();
-            }
-
-            if (Fighters[currentFighter].IsStunned > 1)
-            {
-                Fighters[currentFighter].IsStunned--;
+                TurnOrder[currentFighter].IsStunned--;
                 NextFighter();
             }
         }
@@ -310,7 +367,7 @@ namespace RDVFSharp
 
         public Fighter GetActor()
         {
-            return Fighters[currentFighter];
+            return TurnOrder[currentFighter];
         }
 
         public Fighter GetTarget()
