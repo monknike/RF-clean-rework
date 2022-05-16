@@ -101,7 +101,7 @@ namespace RDVFSharp.FightingLogic.Actions
 
             foreach (var opponent in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
             {
-                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable)
+                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable && !attacker.IsGrappling(target) && !target.IsGrappling(attacker))
                 {
                     attacker.IsGrabbable = 0;
                     battlefield.OutputController.Hit.Add(attacker.Name + " moved away!");

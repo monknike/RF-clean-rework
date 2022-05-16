@@ -83,7 +83,7 @@ namespace RDVFSharp.FightingLogic.Actions
 
             foreach (var opponent in battlefield.Fighters.Where(x => x.TeamColor != attacker.TeamColor))
             {
-                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable)
+                if (attacker.IsGrabbable > 0 && opponent.IsGrabbable == attacker.IsGrabbable && !attacker.IsGrappling(target) && !target.IsGrappling(attacker))
                 {
                     battlefield.OutputController.Hint.Add(attacker.Name + " managed to put some distance between them and " + opponent.Name + " and is now out of grabbing range.");
                 }

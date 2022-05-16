@@ -13,7 +13,13 @@ namespace RDVFSharp.Commands
 
         public override void ExecuteCommand(string character, IEnumerable<string> args, string channel)
         {
-            if ((Plugin.CurrentBattlefield.IsAbleToAttack(character)) && (Plugin.CurrentBattlefield.GetFighter(character).IsRestraining == false))
+            var target = Plugin.CurrentBattlefield.GetTarget();
+            if (Plugin.CurrentBattlefield.GetFighter(character).IsGrappling(target))
+            {
+                Plugin.FChatClient.SendMessageInChannel("You cannot change targets while grappling someone.", channel);
+            }
+
+            else if ((Plugin.CurrentBattlefield.IsAbleToAttack(character)))
             {
                 if (args.Count() < 1)
                 {
