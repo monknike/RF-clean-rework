@@ -343,7 +343,6 @@ namespace RDVFSharp.Entities
         }
         public void UpdateCondition()
         {
-            var attacker = Battlefield.GetActor();
             
             if (IsGrappledBy.Count != 0 && IsRestrained == false) IsRestrained = true;
             if (IsGrappledBy.Count == 0 && IsRestrained == true) IsRestrained = false;
@@ -391,10 +390,9 @@ namespace RDVFSharp.Entities
                 if (IsDisoriented == 0) Battlefield.OutputController.Hint.Add(Name + " has recovered and is no longer dizzy!");
             }
 
-            if (attacker.IsExposed > 0)
+            if (IsExposed > 0)
             {
-                attacker.IsExposed -= 1;
-                if (attacker.IsExposed == 0) Battlefield.OutputController.Hint.Add(Name + " has recovered from the missed attack and is no longer Exposed!");
+                Battlefield.OutputController.Hint.Add(Name + " is exposed and has a -2 difficulty to be hit");
             }
 
 

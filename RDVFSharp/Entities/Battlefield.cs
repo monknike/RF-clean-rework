@@ -322,6 +322,11 @@ namespace RDVFSharp
                 TurnOrder[currentFighter].StaminaDamage--;
             }
 
+            if (TurnOrder[currentFighter].IsExposed > 0)
+            {
+                TurnOrder[currentFighter].IsExposed-=2;
+            }
+            
             if (TurnOrder[currentFighter].IsStunned > 1)
             {
                 TurnOrder[currentFighter].IsStunned--;
@@ -333,6 +338,8 @@ namespace RDVFSharp
                 TurnOrder[currentFighter].IsDazed = false;
                 NextFighter();
             }
+
+            
         }
 
         public void PickInitialActor()
