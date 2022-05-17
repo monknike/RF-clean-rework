@@ -89,7 +89,7 @@ namespace RDVFSharp.FightingLogic.Actions
             target.HitHp(damage);
             attacker.IsGrabbable = 40;
             target.IsGrabbable = 40;
-            attacker.IsRestraining = true;
+            attacker.IsRestraining = 2;
             target.IsRestrained = true;
             return true; //Successful attack, if we ever need to check that.
         }

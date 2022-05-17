@@ -82,11 +82,11 @@ namespace RDVFSharp.FightingLogic.Actions
             {
                 target.RemoveGrappler(attacker);
                 target.IsRestrained = false;
-                attacker.IsRestraining = false;
+                attacker.IsRestraining = 0;
                 if (target.IsGrappling(attacker))
                 {
                     attacker.IsRestrained = false;
-                    target.IsRestraining = false; 
+                    target.IsRestraining = 0; 
                     attacker.RemoveGrappler(target);
                     battlefield.OutputController.Hit.Add(attacker.Name + " gained the upper hand and THREW " + target.Name + "! " + attacker.Name + " can make another move! " + attacker.Name + " is no longer at a penalty from being grappled!");
                 }
@@ -100,7 +100,7 @@ namespace RDVFSharp.FightingLogic.Actions
             else if (target.IsGrappling(attacker))
             {
                 attacker.IsRestrained = false;
-                target.IsRestraining = false;
+                target.IsRestraining = 0;
                 attacker.RemoveGrappler(target);
                 battlefield.OutputController.Hit.Add(attacker.Name + " found a hold and THREW " + target.Name + " off! " + attacker.Name + " is no longer at a penalty from being grappled!");
                 //battlefield.OutputController.Hint.Add(target.Name + ", you should make your post, but you should only emote being hit, do not try to perform any other actions.");

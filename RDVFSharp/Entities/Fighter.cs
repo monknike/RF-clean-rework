@@ -80,7 +80,7 @@ namespace RDVFSharp.Entities
         public bool IsDead { get; set; }
         public int CurseUsed { get; set; }
         public bool IsRestrained { get; set; }
-        public bool IsRestraining { get; set; }
+        public int IsRestraining { get; set; }
         public bool IsDazed { get; set; }
         public int IsStunned { get; set; }
         public int IsDisoriented { get; set; }
@@ -153,7 +153,7 @@ namespace RDVFSharp.Entities
             IsDead = false;
             CurseUsed = 0;
             IsRestrained = false;
-            IsRestraining = false;
+            IsRestraining = 0;
             IsDazed = false;
             IsStunned = 0;
             IsDisoriented = 0;

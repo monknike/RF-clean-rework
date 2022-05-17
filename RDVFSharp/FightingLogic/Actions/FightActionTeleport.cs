@@ -55,7 +55,7 @@ namespace RDVFSharp.FightingLogic.Actions
                 battlefield.OutputController.Hint.Add(attacker.Name + " used ESCAPE. " + target.Name + " is no longer being grappled. ");
                 target.RemoveGrappler(attacker);
                 tempGrappleFlag = false;
-                attacker.IsRestraining = false;
+                attacker.IsRestraining = 0;
                 target.IsRestrained = false;
             }
 
@@ -91,7 +91,7 @@ namespace RDVFSharp.FightingLogic.Actions
                 attacker.IsGrabbable = 0;
                 target.IsGrabbable = 0;
                 attacker.IsRestrained = false;
-                target.IsRestraining = false;
+                target.IsRestraining = 0;
             }
             else
             {
