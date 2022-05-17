@@ -91,6 +91,10 @@ namespace RDVFSharp.Commands
                         {
                             battlefield.OutputController.Hint.Add(NewTarget.Name + " has a temporary +" + NewTarget.IsGuarding + " bonus to evasion and damage reduction.");
                         }
+                        if (NewTarget.IsExposed > 0)
+                        {
+                            battlefield.OutputController.Hint.Add(NewTarget.Name + " is exposed and has a -2 difficulty to be hit");
+                        }
 
                         battlefield.OutputController.Broadcast(battlefield);
                         
