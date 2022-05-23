@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RDVFSharp.Commands
 {
-    public class Commands : BaseCommand<RendezvousFighting>
+    public class Help : BaseCommand<RendezvousFighting>
     {
         public override string Description => "Gets the status of an ongoing fight.";
 
