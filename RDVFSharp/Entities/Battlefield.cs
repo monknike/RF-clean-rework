@@ -94,6 +94,36 @@ namespace RDVFSharp
 
                             {
                                 fighter.CurrentTarget = opponents.First();
+                                if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                {
+                                    fighter.CurrentTarget = opponents.First();
+                                    if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                    {
+                                        fighter.CurrentTarget = opponents.First();
+                                        if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                        {
+                                            fighter.CurrentTarget = opponents.First();
+                                            if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                            {
+                                                fighter.CurrentTarget = opponents.First();
+                                                if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                                {
+                                                    fighter.CurrentTarget = opponents.First();
+                                                    if ((fighter.CurrentTarget == teamMember.CurrentTarget) && (opponents.Count() > 0))
+
+                                                    {
+                                                        fighter.CurrentTarget = opponents.First();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -120,6 +150,36 @@ namespace RDVFSharp
 
                             {
                                 fighter.CurrentTarget = opponents.First();
+                                if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                {
+                                    fighter.CurrentTarget = opponents.First();
+                                    if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                    {
+                                        fighter.CurrentTarget = opponents.First();
+                                        if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                        {
+                                            fighter.CurrentTarget = opponents.First();
+                                            if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                            {
+                                                fighter.CurrentTarget = opponents.First();
+                                                if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                                {
+                                                    fighter.CurrentTarget = opponents.First();
+                                                    if ((fighter.CurrentTarget == Opponent.CurrentTarget) && (opponents.Count() > 0))
+
+                                                    {
+                                                        fighter.CurrentTarget = opponents.First();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

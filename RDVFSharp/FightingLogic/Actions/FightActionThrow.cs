@@ -22,7 +22,7 @@ namespace RDVFSharp.FightingLogic.Actions
 
             foreach (var fighter in others)
             {
-                if (fighter.CurrentTarget == attacker.CurrentTarget) difficulty += 2;
+                if ((fighter.CurrentTarget == attacker.CurrentTarget) && (fighter.IsDead == false)) difficulty += 2;
             }
             if (attacker.IsRestrained) difficulty += Math.Max(0, 12 + (int)Math.Floor((double)(target.Strength - attacker.Strength) / 2)); //When grappled, up the difficulty based on the relative strength of the combatants. Minimum of +4 difficulty, maximum of +12.
             if (attacker.IsRestrained) difficulty -= attacker.IsEscaping; //Then reduce difficulty based on how much effort we've put into escaping so far.
