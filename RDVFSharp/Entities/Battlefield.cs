@@ -73,6 +73,7 @@ namespace RDVFSharp
             }
         }
 
+        #region Target Management
         public void ReassignInitialTargets() // Doing the multiple repeats in here for the occasion where multi-fights occur
         {
             foreach (var fighter in Fighters)
@@ -193,9 +194,54 @@ namespace RDVFSharp
 
         public void AssignNewTarget(Fighter fighter)
         {
-            var opponents = Fighters.Where(x => x.TeamColor != fighter.TeamColor).OrderBy(x => new Random().Next()).ToList();
-            fighter.CurrentTarget = opponents.First();
+            foreach (var Opponent in Fighters.Where(x => x.TeamColor != fighter.TeamColor).ToList())
+            { 
+                var opponents = Fighters.Where((x => x.TeamColor != fighter.TeamColor && x.IsDead == false)).OrderBy(x => new Random().Next()).ToList();
+                fighter.CurrentTarget = opponents.First();
+                if (fighter.CurrentTarget.IsDead == true)
+                {
+                    fighter.CurrentTarget = opponents.First();
+                    if (fighter.CurrentTarget.IsDead == true)
+                    {
+                        fighter.CurrentTarget = opponents.First();
+                        if (fighter.CurrentTarget.IsDead == true)
+                        {
+                            fighter.CurrentTarget = opponents.First();
+                            if (fighter.CurrentTarget.IsDead == true)
+                            {
+                                fighter.CurrentTarget = opponents.First();
+                                if (fighter.CurrentTarget.IsDead == true)
+                                {
+                                    fighter.CurrentTarget = opponents.First();
+                                    if (fighter.CurrentTarget.IsDead == true)
+                                    {
+                                        fighter.CurrentTarget = opponents.First();
+                                        if (fighter.CurrentTarget.IsDead == true)
+                                        {
+                                            fighter.CurrentTarget = opponents.First();
+                                            if (fighter.CurrentTarget.IsDead == true)
+                                            {
+                                                fighter.CurrentTarget = opponents.First();
+                                                if (fighter.CurrentTarget.IsDead == true)
+                                                {
+                                                    fighter.CurrentTarget = opponents.First();
+                                                    if (fighter.CurrentTarget.IsDead == true)
+                                                    {
+                                                        fighter.CurrentTarget = opponents.First();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } 
+            }
         }
+
+        #endregion
 
         public void CheckTargetCoherenceAndReassign()
         {
