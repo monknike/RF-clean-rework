@@ -88,7 +88,7 @@ namespace RDVFSharp.FightingLogic.Actions
                     attacker.IsRestrained = false;
                     target.IsRestraining = 0; 
                     attacker.RemoveGrappler(target);
-                    battlefield.OutputController.Hit.Add(attacker.Name + " gained the upper hand and THREW " + target.Name + "! " + attacker.Name + " can make another move! " + attacker.Name + " is no longer at a penalty from being grappled!");
+                    battlefield.OutputController.Hit.Add(attacker.Name + " gained the upper hand and THREW " + target.Name + "! " + attacker.Name + " is no longer at a penalty from being grappled!");
                 }
                 else
                 {
